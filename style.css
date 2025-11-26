@@ -1,0 +1,805 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.background-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 110vw; /* 横幅を10%拡大 */
+  height: 100vh;
+  object-fit: cover;
+  animation: slideLeft 4s linear infinite;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.bg-image.active {
+  opacity: 1;
+}
+
+@keyframes slideLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-10vw); } /* 拡大分だけ左に動かす */
+}
+
+/* ヘッダー */
+#main-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  transition: height 0.3s ease;
+  height: 60px;
+  z-index: 1000;
+}
+
+/* ヘッダー内の小ロゴ */
+
+.logo-mini-img {
+  height: clamp(18px, 5vw, 50px);
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.logo-mini.fade-in {
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* ← これでもOK */
+  height: 100px;
+  padding: 0 20px;
+  width: 100%; /* ← これを追加！ */
+}
+
+.nav-left {
+  margin: 10px;
+}
+
+.nav-right {
+  align-items: center;
+  margin-left: auto; /* ← これがポイント！ */
+  display: flex;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li {
+  margin: 0 10px;
+}
+
+.nav-list a {
+  font-size: clamp(10px, 1.3vw, 24px);
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  background-color: #ffcc66;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+.menu-toggle {
+  display: none;
+}
+
+/* ロゴ大表示セクション */
+.logo-full {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  margin-top: 130px;
+  opacity: 1;
+}
+
+.logo-full-img {
+  width: 50%;
+  height: auto;
+  transition: opacity 0.5s ease;
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+/* コピーセクション */
+.copy-wrapper {
+  font-size: clamp(10px, 1.3vw, 24px);
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-shadow: 1px 1px 3px #000;
+  margin: 150px 0 300px 0;
+}
+
+.copy-wrapper h1 {
+  transition: opacity 0.8s ease;
+  text-align: center;
+  gap: 15px;
+}
+
+/* ビジョンセクション */
+.vision-wrapper {
+  display: flex;
+  flex-direction: column; /* ← 横並びをやめて縦並びに */
+  gap: 100px;              /* ← 各ボックスの上下間に100pxの隙間 */
+  padding: 0px;
+  margin-bottom: 0px;
+}
+
+.vision-box-user,.vision-box-store,.vision-box-salon {
+  width: 60%;
+  margin: 10px;
+  padding: 20px;
+  background: #f9f9f9;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* 左寄せ */
+.vision-box-user.left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: none;
+  box-shadow: none;
+}
+
+/* 上段：ラベルとコメントを横並び */
+.vision-header-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.vision-label {
+  background-color: #fff;
+  color: #333;
+  padding: 6px 12px;
+  font-size: clamp(10px, 1.3vw, 20px);
+  font-weight: bold;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.vision-comment {
+  font-size: clamp(10px, 1.3vw, 20px);
+  color: #fff;
+  background-color: rgba(0,0,0,0.7);
+  padding: 8px 12px;
+  border:3px solid white;
+  border-radius: 3px;
+  flex: 1;
+}
+
+/* 下段：背景画像＋中央ボタン */
+.vision-image-row {
+  position: relative;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vision-image-overlay {
+  position: relative;
+  z-index: 1;
+}
+
+.vision-button {
+  font-size: clamp(10px, 1.3vw, 20px);
+  background-color: #ffcc66;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.vision-button:hover {
+  background-color: #ffdd88;
+}
+
+/* 右寄せ */
+.vision-box-store.right {
+  align-self: flex-end; /* ← 右寄せにする */
+  margin-left: auto;    /* ← 左側の余白を自動にして右寄せ */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: none;
+  box-shadow: none;
+}
+
+.vision-box-salon.left {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: none;
+  box-shadow: none;
+}
+
+/* 中央寄せ（既存） */
+.vision-box-common.center {
+  width: 70%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 上段：白背景＋枠付きキャッチコピー */
+.vision-common-header {
+  font-size: clamp(10px, 1.3vw, 20px);
+  background-color: #fff;
+  color: #333;
+  font-weight: bold;
+  padding: 12px 16px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 下段：背景画像＋中央テキスト */
+.vision-common-image-row {
+  position: relative;
+  height: 150px;
+  background-image: url("image/text-background4.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vision-common-overlay {
+  font-size: clamp(10px, 1.3vw, 20px);
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.vision-button {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #ffcc66;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.vision-button:hover {
+  background-color: #ffdd88;
+}
+
+/* フッター */
+footer {
+  background: #b9b7b7;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  font-size: clamp(10px, 1.3vw, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  margin-left: 50px;
+  padding: 10px 0;
+}
+
+.footer-right img {
+  height: 4vw; /* お好みで調整 */
+  margin-right: 50px;
+}
+
+.footer-left p {
+    margin: 0px 0;
+    padding: 0px 0;
+}
+
+
+/* about-gacha.htmlパート */
+/* セクションタイトル */
+.section-title {
+  margin: 160px 0 40px 50px;
+  font-size: clamp(12px, 4vw, 24px);
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 3px #000;
+}
+
+/* サービス構成セクション */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  margin: 0 50px 200px;
+}
+
+.flow-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.flow-box h3 {
+  font-size: clamp(10px, 3vw, 20px);
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.flow-box img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+
+.service-wrapper {
+  margin-bottom: 200px;
+}
+
+.service-box {
+  display: flex;
+  background: white;
+  margin: 0 50px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.service-image {
+  width: 50%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.service-description {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.desc-block {
+  flex: 1;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.05);
+}
+
+.desc-block h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+  color: #333;
+}
+
+.summary-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100px 0 200px;
+  padding: 0 20px;
+}
+
+.summary-box {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-left: 8px solid #ffcc66;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 800px;
+  text-align: center;
+  font-size: clamp(12px, 2vw, 20px);
+  line-height: 1.8;
+  color: #333;
+  font-weight: bold;
+  background-image: url("image/summary-background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.store-benefit-wrapper {
+  margin: 100px 0;
+  text-align: center;
+}
+
+.benefit-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin: 0 50px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px 20px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+}
+
+.benefit-box {
+  flex: 1;
+
+  max-width: 320px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.benefit-img {
+  width: 100px;
+  height: auto;
+  margin: 5px 0;
+}
+
+.benefit-heading {
+  font-size: clamp(12px, 3vw, 20px);
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.benefit-text {
+  font-size: clamp(10px, 2.5vw, 16px);
+  line-height: 1.6;
+  color: #555;
+}
+
+.ad-impact-wrapper {
+  margin: 100px 0;
+  padding: 0 50px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.impact-box {
+  display: inline-block;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.impact-img {
+  max-height: 300px;
+  width: auto;
+  max-width: 100%;
+  display: block;
+}
+
+.trial-flow-wrapper {
+  margin: 100px 0;
+  padding: 0 50px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.trial-flow-box {
+  display: inline-block;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.trial-flow-img {
+  max-height: 400px;
+  width: auto;
+  max-width: 100%;
+  display: block;
+}
+
+.trial-flow-wrapper,
+.salon-benefit-wrapper {
+  margin: 100px 0;
+  padding: 0 50px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.trial-flow-box,
+.salon-benefit-box {
+  display: inline-block;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.trial-flow-img,
+.salon-benefit-img {
+  max-height: 300px;
+  width: auto;
+  max-width: 100%;
+  display: block;
+}
+
+
+/* メディアクエリ */
+@media screen and (max-width: 768px) {
+  #main-header {
+    height: 40px;
+  }
+
+  .nav-bar {
+    padding: 10px;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.8); /* 任意の背景色 */
+    position: absolute;
+    top: 40px; /* ヘッダーの高さに応じて調整 */
+    right: 0;
+    width: 100%;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .nav-list a {
+    margin-left: 10px;
+  }
+
+  .nav-list.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+    background-color: rgb(179, 177, 177);
+    border-radius: 50%;
+    font-size: 15px;
+    color: #333;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+
+  .logo-full-img {
+    width: 80%;
+  }
+
+  .copy-wrapper {
+    white-space: normal;     /* 折り返しを許可 */
+    word-break: break-word;  /* 単語の途中でも折り返し */
+    text-align: center;      /* 中央揃え（任意） */
+    padding: 0 20px;         /* 横に余白を追加して折り返しやすく */
+    margin: 100px 0 100px 0;
+  }
+
+  .vision-wrapper {
+    flex-direction: column;
+  }
+
+  .vision-header-row {
+    flex-direction: column; /* 横並び → 縦並び */
+    align-items: stretch;   /* 幅を揃える（任意） */
+    gap: 10px;              /* ラベルとコメントの間隔（調整可） */
+  }
+
+  .vision-label {
+    white-space: normal;    /* 折り返しを許可（必要なら） */
+    text-align: center;     /* 中央揃え（任意） */
+  }
+
+  .vision-comment {
+    text-align: left;       /* 左揃え（任意） */
+  }
+
+  .vision-box-user,
+  .vision-box-store,
+  .vision-box-salon,
+  .vision-box-common {
+    width: 90%;
+    margin: 0 auto; /* 中央揃え */
+    align-self: auto; /* 左右寄せ解除 */
+  }
+
+  .vision-box-user.left,
+  .vision-box-store.right,
+  .vision-box-salon.left,
+  .vision-box-common.center {
+    align-self: auto; /* 左右寄せ解除 */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    width: 90%;
+  }
+
+  .vision-common-image-row {
+    padding: 0 10px;
+  }
+
+  .section-title {
+    margin: 60px 10px 20px 10px;
+  }
+
+  .service-grid {
+    display: flex;              /* グリッド → フレックスに変更 */
+    flex-direction: column;     /* 縦並びにする */
+    align-items: center;        /* 中央揃え */
+    gap: 20px;                  /* ボックス間の余白 */
+    margin: 0 auto 0px auto;       /* 横中央＋下余白 */
+    padding: 0 10px;            /* 画面端との余白（任意） */
+  }
+
+  .service-wrapper {
+    margin-bottom: 50px;
+  }
+
+  .flow-box {
+    width: 90%;                 /* 画面幅の80%に設定 */
+    padding: 5px;
+  }
+
+  .summary-wrapper {
+    margin: 50px 0 30px 0;
+  }
+
+  .summary-box {
+    padding: 5px;
+  }
+
+  .store-benefit-wrapper {
+    margin: 0 0 0 0;
+  }
+
+  .benefit-boxes {
+    flex-direction: column;     /* 縦並びに変更 */
+    width: 80%;                 /* 横幅80%に */
+    margin: 0 auto;             /* 中央揃え */
+    padding: 10px 10px;          /* 上下20px、左右5px */
+  }
+
+  .benefit-box {
+    width: 100%;                /* 各ボックスを100%にして縦並び */
+    max-width: none;            /* 最大幅制限を解除 */
+    padding: 0px 0px;          /* 上下20px、左右5px */
+  }
+
+  .impact-box,
+  .trial-flow-box {
+    padding: 10px;            /* 余白を縮小 */
+  }
+
+  .impact-img,
+  .trial-flow-img {
+    width: 100%;              /* 横幅いっぱいに広げる */
+    height: auto;             /* 高さは自動調整 */
+    max-height: none;         /* 高さ制限を解除 */
+    object-fit: contain;      /* はみ出さずに収める（任意） */
+  }
+
+
+  .ad-impact-wrapper,
+  .trial-flow-wrapper {
+    width: 100%;
+    margin: 0 auto 50px auto;          /* 上下余白と中央揃え */
+    padding: 0px 10px;             /* 左右余白を5pxに */
+  }
+
+  .salon-benefit-wrapper {
+    width: 90%;
+    margin: 0 auto 50px auto;
+    padding: 0 5px;
+  }
+
+  .salon-benefit-box {
+    width: 100%;
+    padding: 10px; /* 余白を縮小 */
+    box-sizing: border-box;
+  }
+
+  .salon-benefit-img {
+    width: 100%;
+    height: auto;
+    max-height: none;       /* 高さ制限を解除 */
+    object-fit: contain;    /* はみ出さずに収める */
+    display: block;         /* インライン余白を防ぐ */
+  }
+
+
+
+
+  footer {
+    flex-direction: column;      /* 横並び → 縦並び */
+    align-items: center;         /* 中央揃え（任意） */
+    padding: 5px 0;             /* 上下に余白を追加（任意） */
+  }
+
+  .footer-left {
+    margin-left: 0;              /* 左余白を解除 */
+    text-align: center;          /* 中央揃え（任意） */
+    padding: 0 0;
+  }
+
+  .footer-right img {
+    margin-right: 0;             /* 右余白を解除 */
+    margin-top: 5px;            /* 上に少し余白（任意） */
+    height: 20px;                /* 固定サイズにしてもOK */
+  }
+
+
+
+}
